@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Bring Me</string>
+
+    <!-- THIS MUST MATCH YOUR APP PACKAGE NAME OR ELSE CAMERA WILL-->
+    <!-- INDICATE A CONFLICTING PROVIDER -->
+    <string name="fileAuthority">com.aragoza_mejilla_que.final_project</string>
+</resources>
