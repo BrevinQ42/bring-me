@@ -5,59 +5,62 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/teal_background"
     tools:context=".LoginScreen">
 
-    <Button
-        android:id="@+id/saveNewUserButton"
-        android:layout_width="113dp"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
         android:layout_marginTop="32dp"
-        android:text="SAVE"
+        android:contentDescription="Bring Me Logo"
+        android:scaleType="centerInside"
+        android:src="@drawable/bring_me_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordInput" />
-
-    <Button
-        android:id="@+id/cancelRegisButton"
-        android:layout_width="113dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="CANCEL"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/saveNewUserButton" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/registerLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="REGISTER"
-        android:textSize="34sp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Register New User"
+        android:textColor="@color/light_orange"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/logoImageView" />
 
     <TextView
         android:id="@+id/usernameInputLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-black"
         android:text="Username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.135"
+        android:textColor="@color/light_orange"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerLabel" />
 
     <EditText
         android:id="@+id/usernameInput"
         android:layout_width="300dp"
-        android:layout_height="65dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:background="@color/white"
         android:ems="10"
-        android:hint="User Name"
+        android:fontFamily="sans-serif-black"
+        android:hint="Username"
         android:inputType="text"
+        android:paddingHorizontal="20dp"
+        android:textColor="@color/teal_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/usernameInputLabel"
         app:layout_constraintTop_toBottomOf="@+id/usernameInputLabel" />
 
@@ -66,39 +69,87 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-black"
         android:text="Password"
+        android:textColor="@color/light_orange"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/usernameInput"
         app:layout_constraintTop_toBottomOf="@+id/usernameInput" />
 
     <EditText
         android:id="@+id/passwordInput"
         android:layout_width="300dp"
-        android:layout_height="65dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:background="@color/white"
         android:ems="10"
+        android:fontFamily="sans-serif-black"
         android:hint="Password"
         android:inputType="textPassword"
+        android:paddingHorizontal="20dp"
+        android:textColor="@color/teal_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/passwordInputLabel"
         app:layout_constraintTop_toBottomOf="@+id/passwordInputLabel" />
-
-    <EditText
-        android:id="@+id/confirmPasswordInput"
-        android:layout_width="300dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="@+id/confirmPasswordLabel"
-        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordLabel" />
 
     <TextView
         android:id="@+id/confirmPasswordLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="ConfirmPassword"
+        android:fontFamily="sans-serif-black"
+        android:text="Confirm Password"
+        android:textColor="@color/light_orange"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/passwordInput"
         app:layout_constraintTop_toBottomOf="@+id/passwordInput" />
+
+    <EditText
+        android:id="@+id/confirmPasswordInput"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:fontFamily="sans-serif-black"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:paddingHorizontal="20dp"
+        android:textColor="@color/teal_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/confirmPasswordLabel"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordLabel" />
+
+    <Button
+        android:id="@+id/saveNewUserButton"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/red"
+        android:fontFamily="sans-serif-black"
+        android:text="REGISTER"
+        android:textColor="@color/light_orange"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordInput" />
+
+    <Button
+        android:id="@+id/cancelRegisButton"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/light_teal"
+        android:fontFamily="sans-serif-black"
+        android:text="CANCEL"
+        android:textColor="@color/light_orange"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/saveNewUserButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

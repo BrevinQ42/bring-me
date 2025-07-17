@@ -5,40 +5,51 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/teal_background"
     tools:context=".LoginScreen">
 
-    <TextView
-        android:id="@+id/loginLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LOGIN"
-        android:textAlignment="center"
-        android:textSize="34sp"
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="365dp"
+        android:layout_height="145dp"
+        android:contentDescription="Bring Me Logo"
+        android:scaleType="centerInside"
+        android:src="@drawable/bring_me_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.103" />
+        app:layout_constraintVertical_bias="0.074" />
 
     <TextView
         android:id="@+id/usernameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:text="User Name"
+        android:fontFamily="sans-serif-black"
+        android:text="Username"
+        android:textColor="@color/light_orange"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.21" />
+        app:layout_constraintVertical_bias="0.35" />
 
     <EditText
         android:id="@+id/usernameCred"
         android:layout_width="300dp"
         android:layout_height="65dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:background="@color/white"
         android:ems="10"
-        android:hint="User Name"
+        android:fontFamily="sans-serif-black"
+        android:hint="Username"
         android:inputType="text"
+        android:paddingHorizontal="20dp"
+        android:textColor="@color/teal_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/usernameLabel"
         app:layout_constraintTop_toBottomOf="@+id/usernameLabel" />
 
@@ -47,7 +58,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
+        android:fontFamily="sans-serif-black"
         android:text="Password"
+        android:textColor="@color/light_orange"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/usernameCred"
         app:layout_constraintTop_toBottomOf="@+id/usernameCred" />
 
@@ -56,9 +70,16 @@
         android:layout_width="300dp"
         android:layout_height="65dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:background="@color/white"
         android:ems="10"
+        android:fontFamily="sans-serif-black"
         android:hint="Password"
         android:inputType="textPassword"
+        android:paddingHorizontal="20dp"
+        android:textColor="@color/teal_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/passwordLabel"
         app:layout_constraintTop_toBottomOf="@+id/passwordLabel" />
 
@@ -66,27 +87,38 @@
         android:id="@+id/rememberMe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:buttonTint="@color/light_teal"
+        android:fontFamily="sans-serif-black"
         android:text="Remember me"
+        android:textColor="@color/light_orange"
         app:layout_constraintStart_toStartOf="@+id/passwordCred"
         app:layout_constraintTop_toBottomOf="@+id/passwordCred" />
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="113dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="224dp"
-        android:text="SIGN IN"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/red"
+        android:fontFamily="sans-serif-black"
+        android:text="LOGIN"
+        android:textColor="@color/light_orange"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rememberMe" />
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="113dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:layout_marginTop="16dp"
+        android:backgroundTint="@color/light_teal"
+        android:fontFamily="sans-serif-black"
         android:text="REGISTER"
+        android:textColor="@color/light_orange"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginButton" />
