@@ -10,11 +10,13 @@ public class Photo extends RealmObject {
 
     @PrimaryKey
     private String photoID = UUID.randomUUID().toString();
-    private File imagePath;
+    private String imagePath;
     private String userID;
     private String promptID;
     private String caption;
     private Integer likeCount;
+
+    public Photo() {}
 
     public String getPhotoID() {
         return photoID;
@@ -24,11 +26,11 @@ public class Photo extends RealmObject {
         this.photoID = photoID;
     }
 
-    public File getImagePath() {
+    public String getImagePath() {
         return imagePath;
     }
 
-    public void setImagePath(File imagePath) {
+    public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
 

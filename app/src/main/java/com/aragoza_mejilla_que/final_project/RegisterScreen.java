@@ -35,10 +35,6 @@ public class RegisterScreen extends AppCompatActivity {
     EditText confirmPasswordInput;
     Button saveNewUserButton;
     Button cancelRegisButton;
-    ImageView photoInput;
-
-    byte[] rawImage = {};
-    File newImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +47,8 @@ public class RegisterScreen extends AppCompatActivity {
             return insets;
         });
 
-        checkPermissions();
+        initRealm();
+        initViews();
     }
 
     public void onDestroy()
@@ -61,47 +58,6 @@ public class RegisterScreen extends AppCompatActivity {
         if (!realm.isClosed()) {
             realm.close();
         }
-    }
-
-    public void checkPermissions()
-    {
-
-        // REQUEST PERMISSIONS for Android 6+
-        // THESE PERMISSIONS SHOULD MATCH THE ONES IN THE MANIFEST
-        Dexter.withContext(this)
-                .withPermissions(
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.CAMERA
-
-                )
-
-                .withListener(new BaseMultiplePermissionsListener()
-                {
-                    public void onPermissionsChecked(MultiplePermissionsReport report)
-                    {
-                        if (report.areAllPermissionsGranted())
-                        {
-                            // all permissions accepted proceed
-                            initRealm();
-                            initViews();
-                        }
-                        else
-                        {
-                            // notify about permissions
-                            toastRequirePermissions();
-                        }
-                    }
-                })
-                .check();
-
-    }
-
-
-    public void toastRequirePermissions()
-    {
-        Toast.makeText(this, "You must provide permissions for app to run", Toast.LENGTH_LONG).show();
-        finish();
     }
 
     void initRealm()
@@ -117,11 +73,9 @@ public class RegisterScreen extends AppCompatActivity {
 
         saveNewUserButton = findViewById(R.id.saveNewUserButton);
         cancelRegisButton = findViewById(R.id.cancelRegisButton);
-        photoInput = findViewById(R.id.photoInput);
 
         saveNewUserButton.setOnClickListener(v -> saveUser());
         cancelRegisButton.setOnClickListener(v -> cancelRegistration());
-        photoInput.setOnClickListener(v -> takePicture());
     }
 
     void saveUser()
@@ -195,16 +149,6 @@ public class RegisterScreen extends AppCompatActivity {
                         Toast t = Toast.makeText(this, "New User Saved.\tTotal: " + userCount, Toast.LENGTH_LONG);
                         t.show();
 
-                        // if there was a rawImage generated for this user
-                        if (rawImage.length > 0)
-                        {
-                            // save rawImage to file
-                            File savedImage = saveFile(rawImage, newUser.getUserID() + ".jpeg");
-
-                            // load file to the image view via picasso
-                            refreshImageView(photoInput, savedImage);
-                        }
-
                         // go back to login page
                         finish();
                     }
@@ -220,81 +164,6 @@ public class RegisterScreen extends AppCompatActivity {
 
     void cancelRegistration()
     {
-        // check if newImage variable has something
-        if (newImage != null && newImage.exists())
-            newImage.delete(); // delete it
-
         finish();
-    }
-
-
-    public static int REQUEST_CODE_IMAGE_SCREEN = 0;
-
-    public void takePicture()
-    {
-        Intent i = new Intent(this, ImageActivity.class);
-        startActivityForResult(i, REQUEST_CODE_IMAGE_SCREEN);
-    }
-
-
-    // SINCE WE USE startForResult(), code will trigger this once the next screen calls finish()
-    public void onActivityResult(int requestCode, int responseCode, Intent data)
-    {
-        super.onActivityResult(requestCode, responseCode, data);
-
-        if (requestCode==REQUEST_CODE_IMAGE_SCREEN)
-        {
-            if (responseCode==ImageActivity.RESULT_CODE_IMAGE_TAKEN)
-            {
-                // receieve the raw JPEG data from ImageActivity
-                // this can be saved to a file or save elsewhere like Realm or online
-                rawImage = data.getByteArrayExtra("rawJpeg");
-
-                try
-                {
-                    // save rawImage to tempfile
-                    newImage = saveFile(rawImage, "temp.jpeg");
-
-                    // load file to the image view via picasso
-                    refreshImageView(photoInput, newImage);
-                }
-                catch (Exception e)
-                {
-                    Toast t = Toast.makeText(this, "Error showing new pic", Toast.LENGTH_LONG);
-                    t.show();
-                }
-            }
-        }
-    }
-
-
-
-
-    private File saveFile(byte[] jpeg, String filename) throws IOException
-    {
-        // this is the root directory for the images
-        File getImageDir = getExternalCacheDir();
-
-        // just a sample, normally you have a diff image name each time
-        File savedImage = new File(getImageDir, filename);
-
-
-        FileOutputStream fos = new FileOutputStream(savedImage);
-        fos.write(jpeg);
-        fos.close();
-        return savedImage;
-    }
-
-
-
-    private void refreshImageView(ImageView imageView, File savedImage) {
-
-
-        // this will put the image saved to the file system to the imageview
-        Picasso.get()
-                .load(savedImage)
-                .networkPolicy(NetworkPolicy.NO_CACHE)
-                .memoryPolicy(MemoryPolicy.NO_CACHE)
-                .into(imageView);
     }
 }

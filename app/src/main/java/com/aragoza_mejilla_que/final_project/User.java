@@ -10,7 +10,7 @@ public class User extends RealmObject {
 
     @PrimaryKey
     private String userID = UUID.randomUUID().toString();
-    private File profilePicturePath;
+    private String profilePicturePath;
     private String name;
     private String password;
 
@@ -24,11 +24,11 @@ public class User extends RealmObject {
         userID = uuid;
     }
 
-    public File getProfilePicturePath() {
+    public String getProfilePicturePath() {
         return profilePicturePath;
     }
 
-    public void setProfilePicturePath(File profilePicturePath) {
+    public void setProfilePicturePath(String profilePicturePath) {
         this.profilePicturePath = profilePicturePath;
     }
 

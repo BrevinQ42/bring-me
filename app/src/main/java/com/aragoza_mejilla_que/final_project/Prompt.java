@@ -13,6 +13,8 @@ public class Prompt extends RealmObject {
     private Date date;
     private Boolean isActive;
 
+    public Prompt() {}
+
     public String getPromptID() {
         return promptID;
     }

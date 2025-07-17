@@ -22,9 +22,7 @@ public class MainActivity extends AppCompatActivity {
     EditText passwordCred;
     CheckBox rememberMe;
     Button loginButton;
-    // Button registerButton;
-    Button adminButton;
-    Button clearButton;
+    Button registerButton;
 
     SharedPreferences prefs;
     SharedPreferences.Editor edit;
@@ -64,9 +62,7 @@ public class MainActivity extends AppCompatActivity {
         passwordCred = findViewById(R.id.passwordCred);
         rememberMe = findViewById(R.id.rememberMe);
         loginButton = findViewById(R.id.loginButton);
-        //registerButton = findViewById(R.id.registerButton);
-        adminButton = findViewById(R.id.adminButton);
-        clearButton = findViewById(R.id.clearPrefsButton);
+        registerButton = findViewById(R.id.registerButton);
 
         prefs = getSharedPreferences("savedUser", MODE_PRIVATE);
         edit = prefs.edit();
@@ -79,17 +75,12 @@ public class MainActivity extends AppCompatActivity {
         // if it is toggled
         if (isRememberMeChecked)
         {
-            //LAB 1
-            //String savedUsername = prefs.getString("username", "null");
-            //String savedPassword = prefs.getString("password", "");
+            String userID = prefs.getString("userID", "");
 
-            //LAB 2
-            String uuid = prefs.getString("uuid", "");
-
-            if (!uuid.isEmpty())
+            if (!userID.isEmpty())
             {
                 User rememberedUser = realm.where(User.class)
-                        .equalTo("uuid", uuid)
+                        .equalTo("userID", userID)
                         .findFirst();
 
                 if (rememberedUser != null)
@@ -101,58 +92,25 @@ public class MainActivity extends AppCompatActivity {
                     // tick the checkbox of rememberMe
                     rememberMe.setChecked(true);
 
-                    // clear shared preferences since user with saved uuid is gone
+                    // clear shared preferences since user with saved userID is gone
                     edit.clear();
                     edit.apply();
                 }
             }
         }
-        // else, leave them be
+        // else, clear shared preferences in case they exist
+        else
+        {
+            edit.clear();
+            edit.apply();
+        }
 
         loginButton.setOnClickListener(v -> login());
-        //registerButton.setOnClickListener(v -> register());
-        adminButton.setOnClickListener(v -> goToAdminScreen());
-        clearButton.setOnClickListener(v -> clearPrefs());
+        registerButton.setOnClickListener(v -> register());
     }
 
     void login()
     {
-        //LAB1
-        //String savedUsername = prefs.getString("username", "null");
-
-        // if there is a saved username,
-        //if (!savedUsername.equals("null"))
-        //{
-            // get the saved password
-            //String savedPassword = prefs.getString("password", "");
-
-            // check if the saved credentials match those entered by the user
-            //if (savedUsername.equals(usernameCred.getText().toString()) &&
-                //savedPassword.equals(passwordCred.getText().toString()))
-            //{
-                // save state of rememberMe checkbox
-                //edit.putBoolean("isRememberMeChecked", rememberMe.isChecked());
-                //edit.apply();
-
-                // if it does, go to the welcome page
-                //Intent welcomePageIntent = new Intent(this, WelcomeScreen.class);
-                //startActivity(welcomePageIntent);
-            //}
-            //else
-            //{
-                // else, send error message through toast
-                //Toast t = Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_LONG);
-                //t.show();
-            //}
-        //}
-        //else // if no saved username,
-        //{
-            // send corresponding message through toast
-            //Toast t = Toast.makeText(this, "Nothing saved", Toast.LENGTH_LONG);
-            //t.show();
-        //}
-
-        //LAB 2
         String enteredUsername = usernameCred.getText().toString();
 
         User result = realm.where(User.class)
@@ -181,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
             // if they match
             else
             {
-                // save uuid
-                edit.putString("uuid", result.getUserID());
+                // save userID
+                edit.putString("userID", result.getUserID());
                 edit.apply();
 
                 // save state of rememberMe checkbox
@@ -201,23 +159,5 @@ public class MainActivity extends AppCompatActivity {
         // go to register page
         Intent registerPageIntent = new Intent(this, RegisterScreen.class);
         startActivity(registerPageIntent);
-    }
-
-    void clearPrefs()
-    {
-        // clear shared preferences
-        edit.clear();
-        edit.apply();
-
-        // send corresponding message through toast
-        Toast t = Toast.makeText(this, "Preferences cleared", Toast.LENGTH_LONG);
-        t.show();
-    }
-
-    void goToAdminScreen()
-    {
-        // go to admin screen
-        Intent adminPageIntent = new Intent(this, AdminScreen.class);
-        startActivity(adminPageIntent);
     }
 }

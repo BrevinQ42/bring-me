@@ -23,8 +23,6 @@ public class WelcomeScreen extends AppCompatActivity {
     Realm realm;
     TextView welcomeText;
 
-    ImageView userPhoto;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,48 +46,27 @@ public class WelcomeScreen extends AppCompatActivity {
     public void initViews()
     {
         welcomeText = findViewById(R.id.welcomeText);
-        userPhoto = findViewById(R.id.userPhoto);
 
         SharedPreferences prefs = getSharedPreferences("savedUser", MODE_PRIVATE);
 
         // get saved state of rememberMe checkbox
         boolean isRememberMeChecked = prefs.getBoolean("isRememberMeChecked", false);
 
-        // get saved name
-        //String name = prefs.getString("name", "");
-
         // get saved uuid
-        String uuid = prefs.getString("uuid", "");
+        String userID = prefs.getString("userID", "");
 
         String name = "";
 
-        if (!uuid.isEmpty())
+        if (!userID.isEmpty())
         {
             User activeUser = realm.where(User.class)
-                                .equalTo("uuid", uuid)
+                                .equalTo("userID", userID)
                                 .findFirst();
 
             if (activeUser != null)
             {
                 // get the user'sname
                 name = activeUser.getName();
-
-                // get cache directory
-                File cacheDir = getExternalCacheDir();
-                File imageFile = new File(cacheDir, activeUser.getUserID() + ".jpeg");
-
-                if (imageFile.exists())
-                {
-                    Picasso.get()
-                            .load(imageFile)
-                            .networkPolicy(NetworkPolicy.NO_CACHE)
-                            .memoryPolicy(MemoryPolicy.NO_CACHE)
-                            .into(userPhoto);
-                }
-                else
-                {
-                    userPhoto.setImageResource(R.mipmap.ic_launcher); // insert default photo
-                }
             }
         }
 
