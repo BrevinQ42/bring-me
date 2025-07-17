@@ -14,9 +14,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Date;
+
 import io.realm.Realm;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginScreen extends AppCompatActivity {
     Realm realm;
     EditText usernameCred;
     EditText passwordCred;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login_screen);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -40,6 +42,18 @@ public class MainActivity extends AppCompatActivity {
 
         initRealm();
         initViews();
+
+//        Prompt p = new Prompt();
+//        p.setText("ROUND! ⚪");
+//        p.setDate(new Date(2024, 5, 9));
+//        p.setActive(true);
+//
+//        try {
+//            realm.beginTransaction();
+//            realm.copyToRealmOrUpdate(p);
+//            realm.commitTransaction();
+//        }
+//        catch (Exception e){}
     }
 
     void initRealm()
@@ -147,9 +161,58 @@ public class MainActivity extends AppCompatActivity {
                 edit.putBoolean("isRememberMeChecked", rememberMe.isChecked());
                 edit.apply();
 
-                // proceed to welcome page
-                Intent welcomePageIntent = new Intent(this, WelcomeScreen.class);
-                startActivity(welcomePageIntent);
+                Date today = new Date(System.currentTimeMillis());
+
+                setLastLoginToPast(result);
+
+                // if the user has already logged in today
+                if (result.getLastLoginDate().getYear() == today.getYear() &&
+                    result.getLastLoginDate().getMonth() == today.getMonth() &&
+                    result.getLastLoginDate().getDate() == today.getDate())
+                {
+                    try
+                    {
+                        realm.beginTransaction();
+
+                        // set last login date to current
+                        result.setLastLoginDate(today);
+
+                        // update user in realm
+                        realm.copyToRealmOrUpdate(result);
+                        realm.commitTransaction();
+
+                        // go to landing screen
+
+                    }
+                    catch (Exception e)
+                    {
+                        Toast t = Toast.makeText(this, "Error saving", Toast.LENGTH_LONG);
+                        t.show();
+                    }
+                }
+                else // this is the first time user is logging in
+                {
+                    try
+                    {
+                        realm.beginTransaction();
+
+                        // set last login date to current
+                        result.setLastLoginDate(today);
+
+                        // update user in realm
+                        realm.copyToRealmOrUpdate(result);
+                        realm.commitTransaction();
+
+                        // go to prompt screen
+                        Intent promptScreenIntent = new Intent(this, PromptScreen.class);
+                        startActivity(promptScreenIntent);
+                    }
+                    catch (Exception e)
+                    {
+                        Toast t = Toast.makeText(this, "Error saving", Toast.LENGTH_LONG);
+                        t.show();
+                    }
+                }
             }
         }
     }
@@ -159,5 +222,29 @@ public class MainActivity extends AppCompatActivity {
         // go to register page
         Intent registerPageIntent = new Intent(this, RegisterScreen.class);
         startActivity(registerPageIntent);
+    }
+
+    // temp for testing
+    void setLastLoginToPast(User result)
+    {
+        try
+        {
+            realm.beginTransaction();
+
+            // set last login date to current
+            result.setLastLoginDate(new Date(2024, 5,9));
+
+            // update user in realm
+            realm.copyToRealmOrUpdate(result);
+            realm.commitTransaction();
+
+            // go to landing screen
+
+        }
+        catch (Exception e)
+        {
+            Toast t = Toast.makeText(this, "Error saving", Toast.LENGTH_LONG);
+            t.show();
+        }
     }
 }

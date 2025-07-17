@@ -52,7 +52,9 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
 
-                    />
+                    >
+
+                </com.theartofdev.edmodo.cropper.CropImageView>
 
             </FrameLayout>
 
@@ -98,14 +100,23 @@
             android:paddingTop="30dp"
             android:paddingBottom="30dp">
 
-            <Button
-                android:layout_margin="5dp"
-                android:id="@+id/cancel"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/caption"
+                android:layout_width="351dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cancel" />
+                android:ems="10"
+                android:hint="Add a caption to your photo! (optional)"
+                android:inputType="text" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="Cancel" />
+
     </LinearLayout>
 </ScrollView>

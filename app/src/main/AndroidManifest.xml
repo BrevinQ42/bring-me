@@ -58,13 +58,13 @@ this MUST match your package name in the <manifest> tag
             android:name=".AdminScreen"
             android:exported="false" />
         <activity
-            android:name=".WelcomeScreen"
+            android:name=".PromptScreen"
             android:exported="false" />
         <activity
             android:name=".RegisterScreen"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

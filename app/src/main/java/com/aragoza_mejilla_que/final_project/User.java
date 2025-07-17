@@ -1,6 +1,7 @@
 package com.aragoza_mejilla_que.final_project;
 
 import java.io.File;
+import java.util.Date;
 import java.util.UUID;
 
 import io.realm.RealmObject;
@@ -13,6 +14,7 @@ public class User extends RealmObject {
     private String profilePicturePath;
     private String name;
     private String password;
+    private Date lastLoginDate = new Date(System.currentTimeMillis());
 
     public User() {}
 
@@ -48,13 +50,22 @@ public class User extends RealmObject {
         this.password = password;
     }
 
+    public Date getLastLoginDate() {
+        return lastLoginDate;
+    }
+
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "userID='" + userID + '\'' +
-                ", profilePicturePath=" + profilePicturePath +
+                ", profilePicturePath='" + profilePicturePath + '\'' +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", lastLoginDate=" + lastLoginDate +
                 '}';
     }
 }

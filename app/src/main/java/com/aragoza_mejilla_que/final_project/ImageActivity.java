@@ -12,6 +12,7 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
@@ -30,6 +31,7 @@ import java.util.List;
 
 public class ImageActivity extends AppCompatActivity
 {
+    private EditText caption;
     private String fileAuthority;
 
     public static int RESULT_CODE_IMAGE_TAKEN = 100;
@@ -145,6 +147,12 @@ public class ImageActivity extends AppCompatActivity
             // send this path back
             Intent i = new Intent();
             i.putExtra("rawJpeg", byteArray);
+
+            String captionText = caption.getText().toString();
+            if (captionText.isEmpty())
+                captionText = "null";
+
+            i.putExtra("caption", captionText);
 
             setResult(RESULT_CODE_IMAGE_TAKEN, i);
             finish();
