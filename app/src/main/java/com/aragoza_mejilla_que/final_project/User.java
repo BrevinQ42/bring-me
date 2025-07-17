@@ -1,5 +1,6 @@
 package com.aragoza_mejilla_que.final_project;
 
+import java.io.File;
 import java.util.UUID;
 
 import io.realm.RealmObject;
@@ -8,18 +9,27 @@ import io.realm.annotations.PrimaryKey;
 public class User extends RealmObject {
 
     @PrimaryKey
-    private String uuid = UUID.randomUUID().toString();
+    private String userID = UUID.randomUUID().toString();
+    private File profilePicturePath;
     private String name;
     private String password;
 
     public User() {}
 
-    public String getUuid() {
-        return uuid;
+    public String getUserID() {
+        return userID;
     }
 
     public void setUuid(String uuid) {
-        this.uuid = uuid;
+        userID = uuid;
+    }
+
+    public File getProfilePicturePath() {
+        return profilePicturePath;
+    }
+
+    public void setProfilePicturePath(File profilePicturePath) {
+        this.profilePicturePath = profilePicturePath;
     }
 
     public String getName() {
@@ -41,7 +51,8 @@ public class User extends RealmObject {
     @Override
     public String toString() {
         return "User{" +
-                "uuid='" + uuid + '\'' +
+                "userID='" + userID + '\'' +
+                ", profilePicturePath=" + profilePicturePath +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 '}';

@@ -129,7 +129,7 @@ public class AdminScreen extends AppCompatActivity {
     public void edit(User u)
     {
         // save uuid of user to be edited
-        edit.putString("uuid", u.getUuid());
+        edit.putString("uuid", u.getUserID());
         edit.apply();
 
         // go to edit page

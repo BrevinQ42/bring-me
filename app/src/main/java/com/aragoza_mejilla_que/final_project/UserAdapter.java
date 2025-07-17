@@ -88,7 +88,7 @@ public class UserAdapter extends RealmRecyclerViewAdapter<User, UserAdapter.View
 
         // get cache directory
         File cacheDir = activity.getExternalCacheDir();
-        File userPhoto = new File(cacheDir, u.getUuid() + ".jpeg");
+        File userPhoto = new File(cacheDir, u.getUserID() + ".jpeg");
 
         if (userPhoto.exists())
         {

@@ -95,7 +95,7 @@ public class EditScreen extends AppCompatActivity {
 
         // get cache directory
         File cacheDir = getExternalCacheDir();
-        File userPhoto = new File(cacheDir, u.getUuid() + ".jpeg");
+        File userPhoto = new File(cacheDir, u.getUserID() + ".jpeg");
 
         if (userPhoto.exists())
         {
@@ -157,7 +157,7 @@ public class EditScreen extends AppCompatActivity {
                     if (rawImage.length > 0)
                     {
                         // save rawImage to file
-                        File savedImage = saveFile(rawImage, u.getUuid() + ".jpeg");
+                        File savedImage = saveFile(rawImage, u.getUserID() + ".jpeg");
 
                         // load file to the image view via picasso
                         refreshImageView(newPhoto, savedImage);

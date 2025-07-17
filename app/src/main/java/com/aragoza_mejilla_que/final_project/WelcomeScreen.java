@@ -76,7 +76,7 @@ public class WelcomeScreen extends AppCompatActivity {
 
                 // get cache directory
                 File cacheDir = getExternalCacheDir();
-                File imageFile = new File(cacheDir, activeUser.getUuid() + ".jpeg");
+                File imageFile = new File(cacheDir, activeUser.getUserID() + ".jpeg");
 
                 if (imageFile.exists())
                 {

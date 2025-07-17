@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
             else
             {
                 // save uuid
-                edit.putString("uuid", result.getUuid());
+                edit.putString("uuid", result.getUserID());
                 edit.apply();
 
                 // save state of rememberMe checkbox

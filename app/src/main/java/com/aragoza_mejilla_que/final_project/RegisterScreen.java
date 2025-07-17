@@ -199,7 +199,7 @@ public class RegisterScreen extends AppCompatActivity {
                         if (rawImage.length > 0)
                         {
                             // save rawImage to file
-                            File savedImage = saveFile(rawImage, newUser.getUuid() + ".jpeg");
+                            File savedImage = saveFile(rawImage, newUser.getUserID() + ".jpeg");
 
                             // load file to the image view via picasso
                             refreshImageView(photoInput, savedImage);
