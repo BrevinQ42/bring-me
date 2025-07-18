@@ -111,7 +111,10 @@ public class PromptScreen extends AppCompatActivity {
                                     .equalTo("isActive", true)
                                     .findFirst();
 
-        promptText.setText(currentPrompt.getText());
+        if (currentPrompt != null)
+            promptText.setText(currentPrompt.getText());
+        else
+            promptText.setText("");
 
         takePictureButton = findViewById(R.id.takePictureButton);
         landingScreenButton = findViewById(R.id.landingScreenButton);
