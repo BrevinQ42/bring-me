@@ -1,8 +1,8 @@
 package com.aragoza_mejilla_que.final_project;
 
-import java.io.File;
 import java.util.UUID;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -15,6 +15,7 @@ public class Photo extends RealmObject {
     private String promptID;
     private String caption;
     private Integer likeCount;
+    private RealmList<User> usersWhoLiked = new RealmList<>();
 
     public Photo() {}
 
@@ -64,6 +65,23 @@ public class Photo extends RealmObject {
 
     public void setLikeCount(Integer likeCount) {
         this.likeCount = likeCount;
+    }
+
+    public Boolean isUserLiker(User user)
+    {
+        return usersWhoLiked.contains(user);
+    }
+
+    public void addUserToLikers(User user)
+    {
+        usersWhoLiked.add(user);
+        likeCount++;
+    }
+
+    public void removeUserFromLikers(User user)
+    {
+        usersWhoLiked.remove(user);
+        likeCount--;
     }
 
     @Override

@@ -3,9 +3,9 @@ package com.aragoza_mejilla_que.final_project;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +40,10 @@ public class ViewImageScreen extends AppCompatActivity {
     ImageView opProfilePic;
     TextView opUsername;
     ImageView userDP;
+    User user;
     ImageView backToLandingButton;
+    ImageView heart;
+    Boolean isPhotoLiked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,12 +85,14 @@ public class ViewImageScreen extends AppCompatActivity {
         opProfilePic = findViewById(R.id.opProfilePic);
         opUsername = findViewById(R.id.opUsername);
         userDP = findViewById(R.id.userDP);
+        heart = findViewById(R.id.heart);
         backToLandingButton = findViewById(R.id.backtoLandingButton);
 
         setupCurrentPromptText();
         setupCurrentPhoto();
         setupOPinfo();
         setupUserDP();
+        setupLikeButton();
 
         backToLandingButton.setOnClickListener(v -> goToLandingScreen());
     }
@@ -207,7 +212,7 @@ public class ViewImageScreen extends AppCompatActivity {
     {
         String userID = prefs.getString("userID", "null");
 
-        User user = realm.where(User.class)
+        user = realm.where(User.class)
                     .equalTo("userID", userID)
                     .findFirst();
 
@@ -248,6 +253,68 @@ public class ViewImageScreen extends AppCompatActivity {
 
     void goToLandingScreen()
     {
+        saveLikeStatus();
+
         // go to landing screen
+    }
+
+    void setupLikeButton()
+    {
+        // if this user is the same user as the owner of the photo
+        if (user.getUserID().equals(pic.getUserID()))
+            return; // don't setup like button
+
+        isPhotoLiked = pic.isUserLiker(user);
+
+        heart.setOnClickListener(v -> likePhoto());
+    }
+
+    void likePhoto()
+    {
+        if (isPhotoLiked)
+        {
+            Toast t = Toast.makeText(this, "You have UNLIKED this post", Toast.LENGTH_LONG);
+            t.show();
+        }
+        else
+        {
+            Toast t = Toast.makeText(this, "You have LIKED this post", Toast.LENGTH_LONG);
+            t.show();
+        }
+
+        isPhotoLiked = !isPhotoLiked;
+    }
+
+    void saveLikeStatus()
+    {
+        // if the photo is liked and the user liked it before going to this screen, or
+        // the photo is unliked and the user has it unliked before going to this screen,
+        if (isPhotoLiked == pic.isUserLiker(user))
+            return; // disregard
+
+        // else
+        try
+        {
+            realm.beginTransaction();
+
+            // if the photo is now liked
+            if (isPhotoLiked)
+                pic.addUserToLikers(user);
+
+            // else, if the photo is now unliked
+            else
+                pic.removeUserFromLikers(user);
+
+            realm.copyToRealmOrUpdate(pic);
+            realm.commitTransaction();
+
+            Toast t = Toast.makeText(this, "Like status has been saved", Toast.LENGTH_LONG);
+            t.show();
+        }
+        catch (Exception e)
+        {
+            Toast t = Toast.makeText(this, "Error saving like status", Toast.LENGTH_LONG);
+            t.show();
+        }
     }
 }
