@@ -3,6 +3,7 @@ package com.aragoza_mejilla_que.final_project;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,16 +25,31 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import io.realm.Realm;
 
 public class ImageActivity extends AppCompatActivity
 {
+    // additional stuff
+    private Realm realm;
+    private SharedPreferences prefs;
     private EditText caption;
+    private ImageView profilePicture;
+    private TextView currentPrompt;
+    private String[] month =
+            {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+
     private String fileAuthority;
 
     public static int RESULT_CODE_IMAGE_TAKEN = 100;
@@ -107,7 +125,90 @@ public class ImageActivity extends AppCompatActivity
             }
         });
 
+        // additional stuff
+        realm = Realm.getDefaultInstance();
+        prefs = getSharedPreferences("savedUser", MODE_PRIVATE);
 
+        caption = findViewById(R.id.caption);
+
+        profilePicture = findViewById(R.id.profilePicture);
+
+        String userID = prefs.getString("userID", "null");
+        User user = realm.where(User.class)
+                            .equalTo("userID", userID)
+                            .findFirst();
+
+        String profilePicPath;
+        try
+        {
+            profilePicPath = user.getProfilePicturePath();
+
+            if (profilePicPath.isEmpty())
+            {
+                profilePicture.setImageResource(R.mipmap.ic_launcher);
+            }
+            else
+            {
+                // get cache directory
+                File cacheDir = getExternalCacheDir();
+                File profilePic = new File(cacheDir, profilePicPath);
+
+                if (profilePic.exists())
+                {
+                    Picasso.get()
+                            .load(profilePic)
+                            .networkPolicy(NetworkPolicy.NO_CACHE)
+                            .memoryPolicy(MemoryPolicy.NO_CACHE)
+                            .into(profilePicture);
+                }
+                else
+                {
+                    profilePicture.setImageResource(R.mipmap.ic_launcher); // insert default photo
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            profilePicture.setImageResource(R.mipmap.ic_launcher);
+        }
+
+        currentPrompt = findViewById(R.id.currentPrompt);
+        Prompt prompt = realm.where(Prompt.class)
+                .equalTo("isActive", true)
+                .findFirst();
+
+        Date currentTime = new Date(System.currentTimeMillis());
+        int hoursLeft = 24 - currentTime.getHours() - 1;
+        int minutesLeft = 60 - currentTime.getMinutes() - 1;
+        int secondsLeft = 60 - Math.min(currentTime.getSeconds(), 59);
+
+        if (secondsLeft == 60)
+        {
+            secondsLeft = 0;
+            minutesLeft++;
+        }
+
+        if (minutesLeft == 60)
+        {
+            minutesLeft = 0;
+            hoursLeft++;
+        }
+
+        String timeLeft = hoursLeft + ":" + minutesLeft + ":" + secondsLeft;
+
+        currentPrompt.setText(
+                month[prompt.getDate().getMonth()] + " " + prompt.getDate().getDate() + ", " +
+                prompt.getText() + "\n" + timeLeft
+        );
+    }
+
+    public void onDestroy()
+    {
+        super.onDestroy();
+
+        if (!realm.isClosed()) {
+            realm.close();
+        }
     }
 
     public void capture()

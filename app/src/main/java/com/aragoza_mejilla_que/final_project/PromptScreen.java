@@ -132,6 +132,13 @@ public class PromptScreen extends AppCompatActivity {
 
     public void takePicture()
     {
+        if (currentPrompt == null)
+        {
+            Toast t = Toast.makeText(this, "No prompt active", Toast.LENGTH_LONG);
+            t.show();
+            return;
+        }
+
         Intent i = new Intent(this, ImageActivity.class);
         startActivityForResult(i, REQUEST_CODE_IMAGE_SCREEN);
     }

@@ -31,7 +31,15 @@
             android:layout_weight="1"
             android:text="Back" />
 
+        <ImageView
+            android:id="@+id/profilePicture"
+            android:layout_width="85dp"
+            android:layout_height="77dp"
+            android:layout_weight="1"
+            tools:srcCompat="@tools:sample/avatars" />
+
         <TextView
+            android:id="@+id/currentPrompt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -41,17 +49,16 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_height="436dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#FFcccccc"
-                android:padding="5dp"
-                >
+                android:padding="5dp">
 
                 <com.theartofdev.edmodo.cropper.CropImageView
                     android:id="@+id/cropImageView"
@@ -78,31 +85,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@android:drawable/ic_menu_camera"
-                    android:tooltipText="Open Camera"
-                    />
+                    android:tooltipText="Open Camera" />
 
                 <ImageButton
                     android:id="@+id/crop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@android:drawable/ic_menu_crop"
-                    android:tooltipText="Crop Image"
-                    />
+                    android:tooltipText="Crop Image" />
 
                 <ImageButton
                     android:id="@+id/rotate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@android:drawable/ic_menu_rotate"
-                    android:tooltipText="Rotate Image"
-                    />
+                    android:tooltipText="Rotate Image" />
             </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="79dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingTop="30dp"
@@ -111,7 +115,7 @@
             <EditText
                 android:id="@+id/caption"
                 android:layout_width="351dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:ems="10"
                 android:hint="Add a caption to your photo! (optional)"
                 android:inputType="text" />
