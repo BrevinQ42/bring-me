@@ -26,26 +26,22 @@ public class UserAdapter extends RealmRecyclerViewAdapter<User, UserAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         // have a field for each one
-        TextView name;
-        TextView password;
-        Button editButton;
-        Button deleteButton;
+        TextView username;
+        TextView photosPosted;
+        Button visitProfileButton;
 
-        ImageView photo;
+        ImageView profilePic;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             // initialize them from the itemView using standard style
-            name = itemView.findViewById(R.id.name);
-            password = itemView.findViewById(R.id.password);
+            username = itemView.findViewById(R.id.username);
+            photosPosted = itemView.findViewById(R.id.photosPosted);
 
-            // initialize the buttons in the layout
-            editButton = itemView.findViewById(R.id.editButton);
-            deleteButton = itemView.findViewById(R.id.deleteButton);
-
+            visitProfileButton = itemView.findViewById(R.id.visitProfileButton);
             // initialize imageView
-            photo = itemView.findViewById(R.id.photo);
+            profilePic = itemView.findViewById(R.id.profilePic);
         }
     }
 
@@ -80,11 +76,10 @@ public class UserAdapter extends RealmRecyclerViewAdapter<User, UserAdapter.View
         User u = getItem(position);
 
         // copy all the values needed to the appropriate views
-        holder.name.setText(u.getName());
-        holder.password.setText(u.getPassword());
+        holder.username.setText(u.getName());
+        holder.photosPosted.setText(u.getPassword());
 
-        holder.editButton.setOnClickListener(v -> editUser(u));
-        holder.deleteButton.setOnClickListener(v -> deleteUser(u));
+        holder.visitProfileButton.setOnClickListener(v -> editUser(u));
 
         // get cache directory
         File cacheDir = activity.getExternalCacheDir();
@@ -96,11 +91,11 @@ public class UserAdapter extends RealmRecyclerViewAdapter<User, UserAdapter.View
                     .load(userPhoto)
                     .networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
-                    .into(holder.photo);
+                    .into(holder.profilePic);
         }
         else
         {
-            holder.photo.setImageResource(R.mipmap.ic_launcher); // insert default photo
+            holder.profilePic.setImageResource(R.mipmap.ic_launcher); // insert default photo
         }
     }
 

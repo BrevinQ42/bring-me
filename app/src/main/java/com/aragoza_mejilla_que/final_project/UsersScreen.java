@@ -61,13 +61,6 @@ public class UsersScreen extends AppCompatActivity {
         // initialize prefs and editor
         prefs = getSharedPreferences("userToBeEdited", MODE_PRIVATE);
         edit = prefs.edit();
-
-        // initialize buttons
-        addButton = findViewById(R.id.addButton);
-        clearButton = findViewById(R.id.clearButton);
-
-        addButton.setOnClickListener(v -> addUser());
-        clearButton.setOnClickListener(v -> clearUsers());
     }
 
     public void onDestroy()

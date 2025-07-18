@@ -5,39 +5,73 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginScreen">
+    android:background="@color/teal_background"
+    tools:context=".EditScreen">
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Bring Me Logo"
+        android:scaleType="centerInside"
+        android:src="@drawable/bring_me_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/editUserLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="EDIT USER"
-        android:textSize="34sp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Edit User"
+        android:textColor="@color/light_orange"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/logoImageView" />
+
+    <ImageView
+        android:id="@+id/newPhoto"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="12dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editUserLabel"
+        app:srcCompat="@drawable/ic_launcher_background" />
 
     <TextView
         android:id="@+id/newUsernameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-black"
         android:text="Username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.121"
+        android:textColor="@color/light_orange"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editUserLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/newPhoto" />
 
     <EditText
         android:id="@+id/newUsername"
-        android:layout_width="296dp"
-        android:layout_height="66dp"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:background="@color/white"
         android:ems="10"
+        android:fontFamily="sans-serif-black"
         android:hint="Username"
         android:inputType="text"
+        android:paddingHorizontal="20dp"
+        android:textColor="@color/teal_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/newUsernameLabel"
         app:layout_constraintTop_toBottomOf="@+id/newUsernameLabel" />
 
@@ -45,19 +79,29 @@
         android:id="@+id/newPasswordLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif-black"
         android:text="Password"
+        android:textColor="@color/light_orange"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/newUsername"
         app:layout_constraintTop_toBottomOf="@+id/newUsername" />
 
     <EditText
         android:id="@+id/newPassword"
-        android:layout_width="296dp"
-        android:layout_height="66dp"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:background="@color/white"
         android:ems="10"
+        android:fontFamily="sans-serif-black"
         android:hint="Password"
         android:inputType="textPassword"
+        android:paddingHorizontal="20dp"
+        android:textColor="@color/teal_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/newPasswordLabel"
         app:layout_constraintTop_toBottomOf="@+id/newPasswordLabel" />
 
@@ -65,50 +109,58 @@
         android:id="@+id/confirmNewPasswordLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif-black"
         android:text="Confirm Password"
+        android:textColor="@color/light_orange"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/newPassword"
         app:layout_constraintTop_toBottomOf="@+id/newPassword" />
 
     <EditText
         android:id="@+id/confirmNewPassword"
-        android:layout_width="296dp"
-        android:layout_height="66dp"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:background="@color/white"
         android:ems="10"
+        android:fontFamily="sans-serif-black"
         android:hint="Confirm Password"
         android:inputType="textPassword"
+        android:paddingHorizontal="20dp"
+        android:textColor="@color/teal_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/confirmNewPasswordLabel"
         app:layout_constraintTop_toBottomOf="@+id/confirmNewPasswordLabel" />
 
     <Button
         android:id="@+id/saveButton"
-        android:layout_width="113dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/red"
+        android:fontFamily="sans-serif-black"
         android:text="SAVE"
+        android:textColor="@color/light_orange"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirmNewPassword" />
 
     <Button
         android:id="@+id/cancelButton"
-        android:layout_width="113dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/light_teal"
+        android:fontFamily="sans-serif-black"
         android:text="CANCEL"
+        android:textColor="@color/light_orange"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/saveButton" />
-
-    <ImageView
-        android:id="@+id/newPhoto"
-        android:layout_width="100dip"
-        android:layout_height="100dip"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editUserLabel"
-        app:srcCompat="@drawable/ic_launcher_background" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
