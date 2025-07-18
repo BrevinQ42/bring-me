@@ -183,6 +183,10 @@ public class PromptScreen extends AppCompatActivity {
 
                     Toast t = Toast.makeText(this, fileName + " is saved", Toast.LENGTH_LONG);
                     t.show();
+
+                    Intent viewImageIntent = new Intent(this, ViewImageScreen.class);
+                    viewImageIntent.putExtra("photoID", pic.getPhotoID());
+                    startActivity(viewImageIntent);
                 }
                 catch (Exception e)
                 {

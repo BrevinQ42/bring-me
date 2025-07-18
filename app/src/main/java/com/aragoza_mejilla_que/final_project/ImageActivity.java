@@ -47,8 +47,10 @@ public class ImageActivity extends AppCompatActivity
     private ImageView profilePicture;
     private TextView currentPrompt;
     private String[] month =
-            {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    {
+        "JAN", "FEB", "MAR", "APR", "MAY", "JUN",
+        "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
+    };
 
     private String fileAuthority;
 
@@ -132,11 +134,18 @@ public class ImageActivity extends AppCompatActivity
         caption = findViewById(R.id.caption);
 
         profilePicture = findViewById(R.id.profilePicture);
+        setupProfilePicture();
 
+        currentPrompt = findViewById(R.id.currentPrompt);
+        setupCurrentPrompt();
+    }
+
+    void setupProfilePicture()
+    {
         String userID = prefs.getString("userID", "null");
         User user = realm.where(User.class)
-                            .equalTo("userID", userID)
-                            .findFirst();
+                .equalTo("userID", userID)
+                .findFirst();
 
         String profilePicPath;
         try
@@ -171,8 +180,10 @@ public class ImageActivity extends AppCompatActivity
         {
             profilePicture.setImageResource(R.mipmap.ic_launcher);
         }
+    }
 
-        currentPrompt = findViewById(R.id.currentPrompt);
+    void setupCurrentPrompt()
+    {
         Prompt prompt = realm.where(Prompt.class)
                 .equalTo("isActive", true)
                 .findFirst();
@@ -198,7 +209,7 @@ public class ImageActivity extends AppCompatActivity
 
         currentPrompt.setText(
                 month[prompt.getDate().getMonth()] + " " + prompt.getDate().getDate() + ", " +
-                prompt.getText() + "\n" + timeLeft
+                        prompt.getText() + "\n" + timeLeft
         );
     }
 
