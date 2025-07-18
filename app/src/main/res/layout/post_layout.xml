@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:background="@color/teal_background">
+
+    <!-- Post Image -->
+    <ImageView
+        android:id="@+id/postImage"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <!-- Post Caption -->
+    <TextView
+        android:id="@+id/postCaption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif"
+        android:lineSpacingExtra="2dp"
+        android:maxLines="10"
+        android:text="They say the mountain shows you who you really are..."
+        android:textColor="@color/light_orange"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postImage" />
+
+    <!-- User Info Section -->
+    <ImageView
+        android:id="@+id/postUserProfilePic"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postCaption"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/postUsername"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-black"
+        android:text="@ClimbingWithMaddy"
+        android:textColor="@color/light_orange"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/postUserProfilePic"
+        app:layout_constraintEnd_toStartOf="@+id/postLikeCount"
+        app:layout_constraintStart_toEndOf="@+id/postUserProfilePic"
+        app:layout_constraintTop_toTopOf="@+id/postUserProfilePic" />
+
+    <!-- Like Count and Heart -->
+    <TextView
+        android:id="@+id/postLikeCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-black"
+        android:text="345"
+        android:textColor="@color/light_orange"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/postUserProfilePic"
+        app:layout_constraintEnd_toStartOf="@+id/postHeartIcon"
+        app:layout_constraintTop_toTopOf="@+id/postUserProfilePic" />
+
+    <ImageView
+        android:id="@+id/postHeartIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/heart_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/postUserProfilePic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/postUserProfilePic" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
