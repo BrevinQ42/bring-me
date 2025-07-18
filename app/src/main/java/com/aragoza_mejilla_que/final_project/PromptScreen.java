@@ -111,7 +111,10 @@ public class PromptScreen extends AppCompatActivity {
                                     .equalTo("isActive", true)
                                     .findFirst();
 
-        promptText.setText(currentPrompt.getText());
+        if (currentPrompt != null)
+            promptText.setText(currentPrompt.getText());
+        else
+            promptText.setText("");
 
         takePictureButton = findViewById(R.id.takePictureButton);
         landingScreenButton = findViewById(R.id.landingScreenButton);
@@ -129,6 +132,13 @@ public class PromptScreen extends AppCompatActivity {
 
     public void takePicture()
     {
+        if (currentPrompt == null)
+        {
+            Toast t = Toast.makeText(this, "No prompt active", Toast.LENGTH_LONG);
+            t.show();
+            return;
+        }
+
         Intent i = new Intent(this, ImageActivity.class);
         startActivityForResult(i, REQUEST_CODE_IMAGE_SCREEN);
     }
@@ -173,6 +183,10 @@ public class PromptScreen extends AppCompatActivity {
 
                     Toast t = Toast.makeText(this, fileName + " is saved", Toast.LENGTH_LONG);
                     t.show();
+
+                    Intent viewImageIntent = new Intent(this, ViewImageScreen.class);
+                    viewImageIntent.putExtra("photoID", pic.getPhotoID());
+                    startActivity(viewImageIntent);
                 }
                 catch (Exception e)
                 {

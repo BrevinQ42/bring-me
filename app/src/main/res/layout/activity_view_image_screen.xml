@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ViewImageScreen">
+
+    <TextView
+        android:id="@+id/currentPromptText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="PROMPT"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/currentPhoto"
+        android:layout_width="412dp"
+        android:layout_height="427dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentPromptText"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <ImageView
+        android:id="@+id/opProfilePic"
+        android:layout_width="57dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentPhoto"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/opUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="28dp"
+        android:text="\@Username"
+        app:layout_constraintStart_toEndOf="@+id/opProfilePic"
+        app:layout_constraintTop_toBottomOf="@+id/currentPhoto" />
+
+    <TextView
+        android:id="@+id/photoLikeCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="28dp"
+        android:text="123"
+        app:layout_constraintStart_toEndOf="@+id/opUsername"
+        app:layout_constraintTop_toBottomOf="@+id/currentPhoto" />
+
+    <ImageView
+        android:id="@+id/heart"
+        android:layout_width="26dp"
+        android:layout_height="23dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintStart_toEndOf="@+id/photoLikeCount"
+        app:layout_constraintTop_toTopOf="@+id/photoLikeCount"
+        app:srcCompat="@android:drawable/arrow_down_float" />
+
+    <TextView
+        android:id="@+id/photoCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Caption"
+        app:layout_constraintStart_toStartOf="@+id/opProfilePic"
+        app:layout_constraintTop_toBottomOf="@+id/opProfilePic" />
+
+    <Button
+        android:id="@+id/backtoLandingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="44dp"
+        android:text="Back"
+        app:layout_constraintEnd_toStartOf="@+id/currentPromptText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/userDP"
+        android:layout_width="52dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="76dp"
+        app:layout_constraintStart_toEndOf="@+id/currentPromptText"
+        app:layout_constraintTop_toTopOf="@+id/backtoLandingButton"
+        tools:srcCompat="@tools:sample/avatars" />
+</androidx.constraintlayout.widget.ConstraintLayout>

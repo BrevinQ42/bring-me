@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- NEW: application permissions -->
     <uses-feature
         android:name="android.hardware.camera"
@@ -9,10 +8,8 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <!-- NEEDED TO ACCESS CAMERA and GALLERY FOR ANDROID 11+ -->
-    <!-- https://stackoverflow.com/questions/62535856/intent-resolveactivity-returns-null-in-api-30/64204646#64204646        -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- NEEDED TO ACCESS CAMERA and GALLERY FOR ANDROID 11+ -->
+    <!-- https://stackoverflow.com/questions/62535856/intent-resolveactivity-returns-null-in-api-30/64204646#64204646 -->
     <queries>
         <intent>
             <action android:name="android.media.action.IMAGE_CAPTURE" />
@@ -33,11 +30,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BringMe"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ViewImageScreen"
+            android:exported="false" />
         <!--
 NEW: the file authority is found in the res/values/strings.xml
 this MUST match your package name in the <manifest> tag
--->
+        -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="@string/fileAuthority"
@@ -50,7 +49,7 @@ this MUST match your package name in the <manifest> tag
                 android:resource="@xml/file_provider_path" />
         </provider>
 
-        <activity android:name=".ImageActivity"/>
+        <activity android:name=".ImageActivity" />
         <activity
             android:name=".EditScreen"
             android:exported="false" />

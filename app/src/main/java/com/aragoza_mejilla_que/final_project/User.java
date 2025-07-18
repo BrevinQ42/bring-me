@@ -14,7 +14,7 @@ public class User extends RealmObject {
     private String profilePicturePath;
     private String name;
     private String password;
-    private Date lastLoginDate = new Date(System.currentTimeMillis());
+    private Date lastLoginDate = new Date(0);
 
     public User() {}
 
