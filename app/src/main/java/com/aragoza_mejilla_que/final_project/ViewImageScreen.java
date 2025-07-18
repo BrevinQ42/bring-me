@@ -40,7 +40,7 @@ public class ViewImageScreen extends AppCompatActivity {
     ImageView opProfilePic;
     TextView opUsername;
     ImageView userDP;
-    Button backToLandingButton;
+    ImageView backToLandingButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

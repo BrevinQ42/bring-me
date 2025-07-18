@@ -1,126 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:background="@color/teal_background">
 
+    <ImageView
+        android:id="@+id/cancel"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Back"
+        android:src="@android:drawable/ic_menu_revert"
+        android:tint="@color/light_orange"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/currentPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:text="JUL 8, ROUND 9\n12:45:11"
+        android:textAlignment="center"
+        android:textColor="@color/light_orange"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cancel" />
 
-    >
+    <ImageView
+        android:id="@+id/profilePicture"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
+    <FrameLayout
+        android:id="@+id/cameraFrame"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentPrompt">
 
+        <com.theartofdev.edmodo.cropper.CropImageView
+            android:id="@+id/cropImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="10dp">
+        android:id="@+id/buttonContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cameraFrame">
 
-        <Button
-            android:id="@+id/cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:text="Back" />
+        <ImageButton
+            android:id="@+id/crop"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:drawable/btn_default"
+            android:contentDescription="Crop Image"
+            android:src="@android:drawable/ic_menu_crop" />
 
-        <ImageView
-            android:id="@+id/profilePicture"
-            android:layout_width="85dp"
-            android:layout_height="77dp"
-            android:layout_weight="1"
-            tools:srcCompat="@tools:sample/avatars" />
+        <ImageButton
+            android:id="@+id/capture"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginHorizontal="16dp"
+            android:adjustViewBounds="true"
+            android:background="@color/teal_background"
+            android:contentDescription="Capture Photo"
+            android:padding="0dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/capture" />
 
-        <TextView
-            android:id="@+id/currentPrompt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Image Capture"
-            android:textSize="36dp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="436dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#FFcccccc"
-                android:padding="5dp">
-
-                <com.theartofdev.edmodo.cropper.CropImageView
-                    android:id="@+id/cropImageView"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-
-                    >
-
-                </com.theartofdev.edmodo.cropper.CropImageView>
-
-            </FrameLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <ImageButton
-                    android:id="@+id/capture"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/ic_menu_camera"
-                    android:tooltipText="Open Camera" />
-
-                <ImageButton
-                    android:id="@+id/crop"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/ic_menu_crop"
-                    android:tooltipText="Crop Image" />
-
-                <ImageButton
-                    android:id="@+id/rotate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/ic_menu_rotate"
-                    android:tooltipText="Rotate Image" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="79dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingTop="30dp"
-            android:paddingBottom="30dp">
-
-            <EditText
-                android:id="@+id/caption"
-                android:layout_width="351dp"
-                android:layout_height="40dp"
-                android:ems="10"
-                android:hint="Add a caption to your photo! (optional)"
-                android:inputType="text" />
-
-        </LinearLayout>
+        <ImageButton
+            android:id="@+id/rotate"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:background="@android:drawable/btn_default"
+            android:contentDescription="Rotate Image"
+            android:src="@android:drawable/ic_menu_rotate" />
 
     </LinearLayout>
-</ScrollView>
+
+    <EditText
+        android:id="@+id/caption"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif"
+        android:hint="Add a caption to your photo! (optional)"
+        android:inputType="text"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/teal_background"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonContainer" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

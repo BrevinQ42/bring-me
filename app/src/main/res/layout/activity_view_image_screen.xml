@@ -5,97 +5,116 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/teal_background"
     tools:context=".ViewImageScreen">
+
+    <ImageView
+        android:id="@+id/backtoLandingButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Back"
+        android:src="@android:drawable/ic_menu_revert"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/currentPromptText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="PROMPT"
+        android:fontFamily="sans-serif-black"
+        android:text="JUL 8, ROUND\n12:45:01"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textColor="@color/light_orange"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/backButton" />
+
+    <ImageView
+        android:id="@+id/userDP"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@android:drawable/sym_def_app_icon" />
 
     <ImageView
         android:id="@+id/currentPhoto"
-        android:layout_width="412dp"
-        android:layout_height="427dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currentPromptText"
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <ImageView
         android:id="@+id/opProfilePic"
-        android:layout_width="57dp"
-        android:layout_height="55dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currentPhoto"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@android:drawable/sym_def_app_icon" />
 
     <TextView
         android:id="@+id/opUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="28dp"
-        android:text="\@Username"
+        android:layout_marginStart="12dp"
+        android:fontFamily="sans-serif-black"
+        android:text="@ClimbingWithMaddy"
+        android:textColor="@color/light_orange"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/opProfilePic"
         app:layout_constraintStart_toEndOf="@+id/opProfilePic"
-        app:layout_constraintTop_toBottomOf="@+id/currentPhoto" />
+        app:layout_constraintTop_toTopOf="@+id/opProfilePic" />
 
     <TextView
         android:id="@+id/photoLikeCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="164dp"
-        android:layout_marginTop="28dp"
-        android:text="123"
-        app:layout_constraintStart_toEndOf="@+id/opUsername"
-        app:layout_constraintTop_toBottomOf="@+id/currentPhoto" />
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-black"
+        android:text="345"
+        android:textColor="@color/light_orange"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/opProfilePic"
+        app:layout_constraintEnd_toStartOf="@+id/heart"
+        app:layout_constraintTop_toTopOf="@+id/opProfilePic" />
 
     <ImageView
         android:id="@+id/heart"
-        android:layout_width="26dp"
-        android:layout_height="23dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/heart_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/opProfilePic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.285"
-        app:layout_constraintStart_toEndOf="@+id/photoLikeCount"
-        app:layout_constraintTop_toTopOf="@+id/photoLikeCount"
-        app:srcCompat="@android:drawable/arrow_down_float" />
+        app:layout_constraintTop_toTopOf="@+id/opProfilePic" />
 
     <TextView
         android:id="@+id/photoCaption"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="Caption"
-        app:layout_constraintStart_toStartOf="@+id/opProfilePic"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="sans-serif"
+        android:text="They say the mountain shows you who you really are. Today it showed me this: soft, round, kind of messy — but still holding together.   \n\n#mountainclimbing #adventure #onestepatatime"
+        android:textColor="@color/light_orange"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/opProfilePic" />
 
-    <Button
-        android:id="@+id/backtoLandingButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="44dp"
-        android:text="Back"
-        app:layout_constraintEnd_toStartOf="@+id/currentPromptText"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/userDP"
-        android:layout_width="52dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="76dp"
-        app:layout_constraintStart_toEndOf="@+id/currentPromptText"
-        app:layout_constraintTop_toTopOf="@+id/backtoLandingButton"
-        tools:srcCompat="@tools:sample/avatars" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -81,7 +81,7 @@ public class ImageActivity extends AppCompatActivity
     private ImageButton rotate;
     private ImageButton crop;
 
-    private Button cancel;
+    private ImageView cancel;
 
 
 
