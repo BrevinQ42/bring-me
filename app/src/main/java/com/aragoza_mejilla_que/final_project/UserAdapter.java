@@ -52,9 +52,9 @@ public class UserAdapter extends RealmRecyclerViewAdapter<User, UserAdapter.View
 
     // IMPORTANT
     // THE CONTAINING ACTIVITY NEEDS TO BE PASSED SO YOU CAN GET THE LayoutInflator(see below)
-    AdminScreen activity;
+    UsersScreen activity;
 
-    public UserAdapter(AdminScreen activity, @Nullable OrderedRealmCollection<User> data, boolean autoUpdate) {
+    public UserAdapter(UsersScreen activity, @Nullable OrderedRealmCollection<User> data, boolean autoUpdate) {
         super(data, autoUpdate);
 
         // THIS IS TYPICALLY THE ACTIVITY YOUR RECYCLERVIEW IS IN

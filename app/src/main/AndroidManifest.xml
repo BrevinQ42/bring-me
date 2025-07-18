@@ -57,7 +57,7 @@ this MUST match your package name in the <manifest> tag
             android:name=".EditScreen"
             android:exported="false" />
         <activity
-            android:name=".AdminScreen"
+            android:name=".UsersScreen"
             android:exported="false" />
         <activity
             android:name=".PromptScreen"
