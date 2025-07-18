@@ -43,6 +43,7 @@ public class LoginScreen extends AppCompatActivity {
         initRealm();
         initViews();
 
+        // TODO: remove these group of lines
         Prompt p = new Prompt();
         p.setText("ROUND! ⚪");
         p.setDate(new Date(2024, 5, 9));
@@ -163,7 +164,7 @@ public class LoginScreen extends AppCompatActivity {
 
                 Date today = new Date(System.currentTimeMillis());
 
-                setLastLoginToPast(result);
+                setLastLoginToPast(result); // TODO: remove this line (and the corresponding function)
 
                 // if the user has already logged in today
                 if (result.getLastLoginDate().getYear() == today.getYear() &&
@@ -231,14 +232,12 @@ public class LoginScreen extends AppCompatActivity {
         {
             realm.beginTransaction();
 
-            // set last login date to current
-            result.setLastLoginDate(new Date(2024, 5,9));
+            // set last login date to Jan 1, 1970 00:00:00
+            result.setLastLoginDate(new Date(0));
 
             // update user in realm
             realm.copyToRealmOrUpdate(result);
             realm.commitTransaction();
-
-            // go to landing screen
 
         }
         catch (Exception e)
