@@ -3,6 +3,7 @@ package com.aragoza_mejilla_que.final_project;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,6 +39,8 @@ public class ViewImageScreen extends AppCompatActivity {
     Photo pic;
     ImageView opProfilePic;
     TextView opUsername;
+    ImageView userDP;
+    Button backToLandingButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,16 +73,23 @@ public class ViewImageScreen extends AppCompatActivity {
 
     void initViews()
     {
+        prefs = getSharedPreferences("savedUser", MODE_PRIVATE);
+
         currentPromptText = findViewById(R.id.currentPromptText);
         currentPhoto = findViewById(R.id.currentPhoto);
         photoLikeCount = findViewById(R.id.photoLikeCount);
         photoCaption = findViewById(R.id.photoCaption);
         opProfilePic = findViewById(R.id.opProfilePic);
         opUsername = findViewById(R.id.opUsername);
+        userDP = findViewById(R.id.userDP);
+        backToLandingButton = findViewById(R.id.backtoLandingButton);
 
         setupCurrentPromptText();
         setupCurrentPhoto();
         setupOPinfo();
+        setupUserDP();
+
+        backToLandingButton.setOnClickListener(v -> goToLandingScreen());
     }
 
     void setupCurrentPromptText()
@@ -191,5 +201,53 @@ public class ViewImageScreen extends AppCompatActivity {
         }
 
         opUsername.setText(op.getName());
+    }
+
+    void setupUserDP()
+    {
+        String userID = prefs.getString("userID", "null");
+
+        User user = realm.where(User.class)
+                    .equalTo("userID", userID)
+                    .findFirst();
+
+        String profilePicPath;
+        try
+        {
+            profilePicPath = user.getProfilePicturePath();
+
+            if (profilePicPath.isEmpty())
+            {
+                userDP.setImageResource(R.mipmap.ic_launcher);
+            }
+            else
+            {
+                // get cache directory
+                File cacheDir = getExternalCacheDir();
+                File profilePic = new File(cacheDir, profilePicPath);
+
+                if (profilePic.exists())
+                {
+                    Picasso.get()
+                            .load(profilePic)
+                            .networkPolicy(NetworkPolicy.NO_CACHE)
+                            .memoryPolicy(MemoryPolicy.NO_CACHE)
+                            .into(userDP);
+                }
+                else
+                {
+                    userDP.setImageResource(R.mipmap.ic_launcher); // insert default photo
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            userDP.setImageResource(R.mipmap.ic_launcher);
+        }
+    }
+
+    void goToLandingScreen()
+    {
+        // go to landing screen
     }
 }
