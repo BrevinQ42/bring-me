@@ -33,27 +33,28 @@
         app:tint="@color/light_orange" />
 
     <TextView
-        android:id="@+id/usersTitle"
+        android:id="@+id/archivesTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif"
-        android:text="All Users"
+        android:text="Archives"
         android:textColor="@color/light_orange"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoImageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/logoImageView" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/usersList"
+        android:id="@+id/promptsList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:paddingHorizontal="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomButtonsContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usersTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/archivesTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
