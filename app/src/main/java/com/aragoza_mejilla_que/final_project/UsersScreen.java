@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -32,17 +33,22 @@ public class UsersScreen extends AppCompatActivity {
         });
 
         init();
+
+        backButton.setOnClickListener(v -> {
+            super.onBackPressed();
+        });
     }
 
     SharedPreferences prefs;
     Realm realm;
     SharedPreferences.Editor edit;
     RecyclerView usersList;
-    Button addButton;
-    Button clearButton;
+    ImageView backButton;
 
     void init()
     {
+        backButton = findViewById(R.id.backButton);
+
         // initialize realm
         realm = Realm.getDefaultInstance();
 

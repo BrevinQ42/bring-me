@@ -94,8 +94,8 @@
 
     <ImageView
         android:id="@+id/heart"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/heart_icon"
         app:layout_constraintBottom_toBottomOf="@+id/opProfilePic"

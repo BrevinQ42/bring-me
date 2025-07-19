@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -85,6 +84,7 @@ public class ImageActivity extends AppCompatActivity
 
 
 
+
     public void init()
     {
         // this file authority is in the res/values/strings.xml
@@ -95,7 +95,7 @@ public class ImageActivity extends AppCompatActivity
         cropImageView = findViewById(R.id.cropImageView);
 
         // initialize all buttons
-        capture = findViewById(R.id.capture);
+        capture = findViewById(R.id.btCamera);
         capture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,7 +103,7 @@ public class ImageActivity extends AppCompatActivity
             }
         });
 
-        rotate = findViewById(R.id.rotate);
+        rotate = findViewById(R.id.btUsers);
         rotate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,7 +111,7 @@ public class ImageActivity extends AppCompatActivity
             }
         });
 
-        crop = findViewById(R.id.crop);
+        crop = findViewById(R.id.btArchive);
         crop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

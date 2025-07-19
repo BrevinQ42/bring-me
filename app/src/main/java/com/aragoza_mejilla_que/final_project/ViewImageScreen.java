@@ -253,68 +253,49 @@ public class ViewImageScreen extends AppCompatActivity {
 
     void goToLandingScreen()
     {
-        saveLikeStatus();
-
-        // go to landing screen
+        Intent i = new Intent(this, LandingScreen.class);
+        startActivity(i);
     }
 
-    void setupLikeButton()
-    {
-        // if this user is the same user as the owner of the photo
-        if (user.getUserID().equals(pic.getUserID()))
-            return; // don't setup like button
-
-        isPhotoLiked = pic.isUserLiker(user);
-
-        heart.setOnClickListener(v -> likePhoto());
-    }
-
-    void likePhoto()
-    {
-        if (isPhotoLiked)
-        {
-            Toast t = Toast.makeText(this, "You have UNLIKED this post", Toast.LENGTH_LONG);
-            t.show();
-        }
-        else
-        {
-            Toast t = Toast.makeText(this, "You have LIKED this post", Toast.LENGTH_LONG);
-            t.show();
+    void setupLikeButton() {
+        if (pic != null && user != null) {
+            isPhotoLiked = pic.isUserLiker(user);
+        } else {
+            isPhotoLiked = false;
+            heart.setOnClickListener(null);
+            return;
         }
 
-        isPhotoLiked = !isPhotoLiked;
-    }
+        heart.setOnClickListener(v -> {
+            int currentLikeCount = Integer.parseInt(photoLikeCount.getText().toString());
 
-    void saveLikeStatus()
-    {
-        // if the photo is liked and the user liked it before going to this screen, or
-        // the photo is unliked and the user has it unliked before going to this screen,
-        if (isPhotoLiked == pic.isUserLiker(user))
-            return; // disregard
+            if (isPhotoLiked) {
+                Toast.makeText(this, "You have UNLIKED this post", Toast.LENGTH_SHORT).show();
+                photoLikeCount.setText(String.valueOf(currentLikeCount - 1));
+            } else {
+                Toast.makeText(this, "You have LIKED this post", Toast.LENGTH_SHORT).show();
+                photoLikeCount.setText(String.valueOf(currentLikeCount + 1));
+            }
 
-        // else
-        try
-        {
-            realm.beginTransaction();
+            // Toggle the state for next click
+            isPhotoLiked = !isPhotoLiked;
 
-            // if the photo is now liked
-            if (isPhotoLiked)
-                pic.addUserToLikers(user);
+            if (realm != null && !realm.isClosed() && pic != null && user != null) {
+                try {
+                    realm.executeTransaction(r -> {
+                        if (isPhotoLiked) {
+                            pic.addUserToLikers(user);
+                        } else {
+                            pic.removeUserFromLikers(user);
+                        }
+                    });
+                    photoLikeCount.setText(String.valueOf(pic.getLikeCount()));
 
-            // else, if the photo is now unliked
-            else
-                pic.removeUserFromLikers(user);
-
-            realm.copyToRealmOrUpdate(pic);
-            realm.commitTransaction();
-
-            Toast t = Toast.makeText(this, "Like status has been saved", Toast.LENGTH_LONG);
-            t.show();
-        }
-        catch (Exception e)
-        {
-            Toast t = Toast.makeText(this, "Error saving like status", Toast.LENGTH_LONG);
-            t.show();
-        }
+                } catch (Exception e) {
+                    Toast.makeText(this, "Error saving like status: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

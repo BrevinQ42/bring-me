@@ -1,11 +1,11 @@
 package com.aragoza_mejilla_que.final_project;
 
-import android.Manifest;
+import static com.aragoza_mejilla_que.final_project.PromptScreen.REQUEST_CODE_IMAGE_SCREEN;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -13,124 +13,74 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.listener.multi.BaseMultiplePermissionsListener;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
 import java.util.UUID;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
+import io.realm.Sort;
 
-public class PromptScreen extends AppCompatActivity {
-    Realm realm;
+public class LandingScreen extends AppCompatActivity {
+    private RecyclerView postsList;
+    private PhotoAdapter photoAdapter;
+    private Realm realm;
+    private RealmResults<Photo> photoResults;
     SharedPreferences prefs;
+
+    ImageView btArchive;
+    ImageView btCamera;
+    ImageView btUsers;
     Prompt currentPrompt;
-    TextView promptText;
-    Button takePictureButton;
-    Button landingScreenButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_prompt_screen);
+        setContentView(R.layout.activity_landing_screen);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        checkPermissions();
-    }
+        btArchive = findViewById(R.id.btArchive);
+        btCamera = findViewById(R.id.btCamera);
+        btUsers = findViewById(R.id.btUsers);
 
-    public void checkPermissions()
-    {
-
-        // REQUEST PERMISSIONS for Android 6+
-        // THESE PERMISSIONS SHOULD MATCH THE ONES IN THE MANIFEST
-        Dexter.withContext(this)
-                .withPermissions(
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.CAMERA
-
-                )
-
-                .withListener(new BaseMultiplePermissionsListener()
-                {
-                    public void onPermissionsChecked(MultiplePermissionsReport report)
-                    {
-                        if (report.areAllPermissionsGranted())
-                        {
-                            // all permissions accepted proceed
-                            initRealm();
-                            initViews();
-                        }
-                        else
-                        {
-                            // notify about permissions
-                            toastRequirePermissions();
-                        }
-                    }
-                })
-                .check();
-    }
-
-
-    public void toastRequirePermissions()
-    {
-        Toast.makeText(this, "You must provide permissions for app to run", Toast.LENGTH_LONG).show();
-        finish();
-    }
-
-    public void initRealm()
-    {
         realm = Realm.getDefaultInstance();
-    }
+        postsList = findViewById(R.id.postsList);
+        postsList.setLayoutManager(new LinearLayoutManager(this));
 
-    public void onDestroy()
-    {
-        super.onDestroy();
-
-        if (!realm.isClosed()) {
-            realm.close();
-        }
-    }
-
-    public void initViews()
-    {
         prefs = getSharedPreferences("savedUser", MODE_PRIVATE);
 
-        promptText = findViewById(R.id.promptText);
+        photoResults = realm.where(Photo.class).findAll().sort("photoID", Sort.DESCENDING);
+        photoAdapter = new PhotoAdapter(this, photoResults);
+        postsList.setAdapter(photoAdapter);
+
+        photoResults.addChangeListener(photos -> photoAdapter.notifyDataSetChanged());
 
         currentPrompt = realm.where(Prompt.class)
-                                    .equalTo("isActive", true)
-                                    .findFirst();
+                .equalTo("isActive", true)
+                .findFirst();
 
-        if (currentPrompt != null)
-            promptText.setText(currentPrompt.getText());
-        else
-            promptText.setText("");
+        // button logic
+        btArchive.setOnClickListener(v -> {
+            Intent i = new Intent(this, Archives.class);
+            startActivity(i);
+        });
 
-        takePictureButton = findViewById(R.id.takePictureButton);
-        landingScreenButton = findViewById(R.id.landingScreenButton);
+        btCamera.setOnClickListener(v -> takePicture());
 
-        takePictureButton.setOnClickListener(v -> takePicture());
-        landingScreenButton.setOnClickListener(v -> goToLandingScreen());
+        btUsers.setOnClickListener(v -> {
+            Intent i = new Intent(this, UsersScreen.class);
+            startActivity(i);
+        });
     }
-
-    void goToLandingScreen()
-    {
-        Intent i = new Intent(this, LandingScreen.class);
-        startActivity(i);
-    }
-
-    public static int REQUEST_CODE_IMAGE_SCREEN = 0;
 
     public void takePicture()
     {
@@ -145,8 +95,6 @@ public class PromptScreen extends AppCompatActivity {
         startActivityForResult(i, REQUEST_CODE_IMAGE_SCREEN);
     }
 
-
-    // SINCE WE USE startForResult(), code will trigger this once the next screen calls finish()
     public void onActivityResult(int requestCode, int responseCode, Intent data)
     {
         super.onActivityResult(requestCode, responseCode, data);
@@ -156,9 +104,6 @@ public class PromptScreen extends AppCompatActivity {
             if (responseCode==ImageActivity.RESULT_CODE_IMAGE_TAKEN)
             {
                 String userID = prefs.getString("userID", "null");
-
-                // Date promptDate = currentPrompt.getDate();
-                // String fileName = userID+promptDate.getMonth()+promptDate.getDate()+promptDate.getYear()+".jpeg";
 
                 // to create unique filenames, use uuid
                 String photoId = UUID.randomUUID().toString();
@@ -203,9 +148,6 @@ public class PromptScreen extends AppCompatActivity {
         }
     }
 
-
-
-
     private File saveFile(byte[] jpeg, String filename) throws IOException
     {
         // this is the root directory for the images
@@ -219,5 +161,14 @@ public class PromptScreen extends AppCompatActivity {
         fos.write(jpeg);
         fos.close();
         return savedImage;
+    }
+
+    public void onDestroy()
+    {
+        super.onDestroy();
+
+        if (!realm.isClosed()) {
+            realm.close();
+        }
     }
 }
