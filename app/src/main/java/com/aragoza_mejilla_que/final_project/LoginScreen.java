@@ -44,17 +44,17 @@ public class LoginScreen extends AppCompatActivity {
         initViews();
 
         // TODO: remove these group of lines
-        Prompt p = new Prompt();
-        p.setText("ROUND! ⚪");
-        p.setDate(new Date(2024, 5, 9));
-        p.setActive(true);
-
-        try {
-            realm.beginTransaction();
-            realm.copyToRealmOrUpdate(p);
-            realm.commitTransaction();
-        }
-        catch (Exception e){}
+//        Prompt p = new Prompt();
+//        p.setText("ROUND! ⚪");
+//        p.setDate(new Date(2024, 5, 9));
+//        p.setActive(true);
+//
+//        try {
+//            realm.beginTransaction();
+//            realm.copyToRealmOrUpdate(p);
+//            realm.commitTransaction();
+//        }
+//        catch (Exception e){}
     }
 
     void initRealm()

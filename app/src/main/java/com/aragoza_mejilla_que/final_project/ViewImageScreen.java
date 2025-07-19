@@ -171,36 +171,19 @@ public class ViewImageScreen extends AppCompatActivity {
                         .equalTo("userID", pic.getUserID())
                         .findFirst();
 
-        String profilePicPath;
-        try
+        String opID = op.getUserID();
+        File cacheDir = getExternalCacheDir();
+        File userPhoto = new File(cacheDir, opID + ".jpeg");
+
+        if (userPhoto.exists())
         {
-            profilePicPath = op.getProfilePicturePath();
-
-            if (profilePicPath.isEmpty())
-            {
-                opProfilePic.setImageResource(R.mipmap.ic_launcher);
-            }
-            else
-            {
-                // get cache directory
-                File cacheDir = getExternalCacheDir();
-                File profilePic = new File(cacheDir, profilePicPath);
-
-                if (profilePic.exists())
-                {
-                    Picasso.get()
-                            .load(profilePic)
-                            .networkPolicy(NetworkPolicy.NO_CACHE)
-                            .memoryPolicy(MemoryPolicy.NO_CACHE)
-                            .into(opProfilePic);
-                }
-                else
-                {
-                    opProfilePic.setImageResource(R.mipmap.ic_launcher); // insert default photo
-                }
-            }
+            Picasso.get()
+                    .load(userPhoto)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .into(opProfilePic);
         }
-        catch (Exception e)
+        else
         {
             opProfilePic.setImageResource(R.mipmap.ic_launcher);
         }
@@ -216,38 +199,21 @@ public class ViewImageScreen extends AppCompatActivity {
                     .equalTo("userID", userID)
                     .findFirst();
 
-        String profilePicPath;
-        try
+        String loggedInUserID = prefs.getString("userID", null);
+        File cacheDir = getExternalCacheDir();
+        File userPhoto = new File(cacheDir, loggedInUserID + ".jpeg");
+
+        if (userPhoto.exists())
         {
-            profilePicPath = user.getProfilePicturePath();
-
-            if (profilePicPath.isEmpty())
-            {
-                userDP.setImageResource(R.mipmap.ic_launcher);
-            }
-            else
-            {
-                // get cache directory
-                File cacheDir = getExternalCacheDir();
-                File profilePic = new File(cacheDir, profilePicPath);
-
-                if (profilePic.exists())
-                {
-                    Picasso.get()
-                            .load(profilePic)
-                            .networkPolicy(NetworkPolicy.NO_CACHE)
-                            .memoryPolicy(MemoryPolicy.NO_CACHE)
-                            .into(userDP);
-                }
-                else
-                {
-                    userDP.setImageResource(R.mipmap.ic_launcher); // insert default photo
-                }
-            }
+            Picasso.get()
+                    .load(userPhoto)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .into(userDP);
         }
-        catch (Exception e)
+        else
         {
-            userDP.setImageResource(R.mipmap.ic_launcher);
+            userDP.setImageResource(R.mipmap.ic_launcher); // insert default photo
         }
     }
 

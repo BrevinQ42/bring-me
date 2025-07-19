@@ -10,6 +10,7 @@ public class Prompt extends RealmObject {
     @PrimaryKey
     private String promptID = UUID.randomUUID().toString();
     private String text;
+    private String imagePath;
     private Date date;
     private Boolean isActive;
 
@@ -29,6 +30,14 @@ public class Prompt extends RealmObject {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public Date getDate() {
@@ -52,6 +61,7 @@ public class Prompt extends RealmObject {
         return "Prompt{" +
                 "promptID='" + promptID + '\'' +
                 ", text='" + text + '\'' +
+                ", imagePath='" + imagePath + '\'' +
                 ", date=" + date +
                 ", isActive=" + isActive +
                 '}';

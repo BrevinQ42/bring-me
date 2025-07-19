@@ -64,7 +64,21 @@ public class LandingScreen extends AppCompatActivity {
 
         prefs = getSharedPreferences("savedUser", MODE_PRIVATE);
 
-        photoResults = realm.where(Photo.class).findAll().sort("photoID", Sort.DESCENDING);
+        currentPrompt = realm.where(Prompt.class)
+                .equalTo("isActive", true)
+                .findFirst();
+
+        if (currentPrompt != null) {
+            photoResults = realm.where(Photo.class)
+                    .equalTo("promptID", currentPrompt.getPromptID())
+                    .sort("photoID", Sort.DESCENDING)
+                    .findAll();
+        } else {
+
+            photoResults = realm.where(Photo.class).equalTo("promptID", "no_active_prompt_id").findAll();
+            Toast.makeText(this, "No active prompt found.", Toast.LENGTH_LONG).show();
+        }
+
         photoAdapter = new PhotoAdapter(this, photoResults);
         postsList.setAdapter(photoAdapter);
 

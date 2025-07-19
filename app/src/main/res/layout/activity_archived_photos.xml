@@ -13,17 +13,20 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="52dp"
         android:contentDescription="Back"
         android:src="@android:drawable/ic_menu_revert"
-        app:tint="@color/light_orange"
+        app:layout_constraintEnd_toStartOf="@+id/currentPrompt"
+        app:layout_constraintHorizontal_bias="0.083"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/light_orange" />
 
     <TextView
         android:id="@+id/currentPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
         android:fontFamily="sans-serif-black"
         android:text="JUL 8, ROUND\n12:45:11"
         android:textAlignment="center"
@@ -31,20 +34,18 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cancel2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/photoGrid"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="389dp"
+        android:layout_height="675dp"
         android:layout_marginHorizontal="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="44dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="3"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentPrompt2" />
+        app:layout_constraintTop_toBottomOf="@+id/currentPrompt"
+        app:spanCount="3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

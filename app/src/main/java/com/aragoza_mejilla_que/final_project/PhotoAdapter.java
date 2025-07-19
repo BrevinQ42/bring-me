@@ -1,7 +1,10 @@
 package com.aragoza_mejilla_que.final_project;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,22 +61,22 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
         if (user != null) {
             holder.postUsernameTextView.setText(user.getName());
             if (user.getProfilePicturePath() != null && !user.getProfilePicturePath().isEmpty()) {
-                File profilePicFile = new File(cacheDir, user.getProfilePicturePath());
+                File cacheDir = context.getExternalCacheDir();
+                File userPhoto = new File(cacheDir, user.getUserID() + ".jpeg");
 
-                if (profilePicFile.exists()) {
+                if (userPhoto.exists())
+                {
+                    Log.v(TAG, "User photo exists");
                     Picasso.get()
-                            .load(profilePicFile)
-                            .memoryPolicy(MemoryPolicy.NO_CACHE)
+                            .load(userPhoto)
                             .networkPolicy(NetworkPolicy.NO_CACHE)
-                            .placeholder(R.drawable.ic_launcher_background)
-                            .error(R.drawable.ic_launcher_background)
+                            .memoryPolicy(MemoryPolicy.NO_CACHE)
                             .into(holder.postUserProfilePicImageView);
-                } else {
-                    Picasso.get()
-                            .load(user.getProfilePicturePath())
-                            .placeholder(R.drawable.ic_launcher_background)
-                            .error(R.drawable.ic_launcher_background)
-                            .into(holder.postUserProfilePicImageView);
+                }
+                else
+                {
+                    Log.v(TAG, "User photo does not exist");
+                    holder.postUserProfilePicImageView.setImageResource(R.mipmap.ic_launcher);
                 }
             } else {
                 holder.postUserProfilePicImageView.setImageResource(R.drawable.ic_launcher_background);
