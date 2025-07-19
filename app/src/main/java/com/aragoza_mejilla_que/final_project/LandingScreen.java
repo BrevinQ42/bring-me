@@ -16,6 +16,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,6 +39,7 @@ public class LandingScreen extends AppCompatActivity {
     ImageView btArchive;
     ImageView btCamera;
     ImageView btUsers;
+    ImageView profilePicture;
     Prompt currentPrompt;
 
     @Override
@@ -51,6 +56,7 @@ public class LandingScreen extends AppCompatActivity {
         btArchive = findViewById(R.id.btArchive);
         btCamera = findViewById(R.id.btCamera);
         btUsers = findViewById(R.id.btUsers);
+        profilePicture = findViewById(R.id.profilePicture);
 
         realm = Realm.getDefaultInstance();
         postsList = findViewById(R.id.postsList);
@@ -80,6 +86,32 @@ public class LandingScreen extends AppCompatActivity {
             Intent i = new Intent(this, UsersScreen.class);
             startActivity(i);
         });
+
+        profilePicture.setOnClickListener(v -> {
+            String loggedInUserID = prefs.getString("userID", null);
+
+            Intent intent = new Intent(this, Profile.class);
+            intent.putExtra("userID", loggedInUserID);
+            startActivity(intent);
+        });
+
+        // profile picture
+        String loggedInUserID = prefs.getString("userID", null);
+        File cacheDir = getExternalCacheDir();
+        File userPhoto = new File(cacheDir, loggedInUserID + ".jpeg");
+
+        if (userPhoto.exists())
+        {
+            Picasso.get()
+                    .load(userPhoto)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .into(profilePicture);
+        }
+        else
+        {
+            profilePicture.setImageResource(R.mipmap.ic_launcher); // insert default photo
+        }
     }
 
     public void takePicture()

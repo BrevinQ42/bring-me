@@ -1,5 +1,6 @@
 package com.aragoza_mejilla_que.final_project;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 
 import io.realm.OrderedRealmCollection;
+import io.realm.Realm;
 import io.realm.RealmRecyclerViewAdapter;
 
 // the parameterization <type of the RealmObject, ViewHolder type)
@@ -49,12 +51,14 @@ public class UserAdapter extends RealmRecyclerViewAdapter<User, UserAdapter.View
     // IMPORTANT
     // THE CONTAINING ACTIVITY NEEDS TO BE PASSED SO YOU CAN GET THE LayoutInflator(see below)
     UsersScreen activity;
+    private Realm realm;
 
     public UserAdapter(UsersScreen activity, @Nullable OrderedRealmCollection<User> data, boolean autoUpdate) {
         super(data, autoUpdate);
 
         // THIS IS TYPICALLY THE ACTIVITY YOUR RECYCLERVIEW IS IN
         this.activity = activity;
+        this.realm = Realm.getDefaultInstance();
     }
 
 
@@ -77,9 +81,11 @@ public class UserAdapter extends RealmRecyclerViewAdapter<User, UserAdapter.View
 
         // copy all the values needed to the appropriate views
         holder.username.setText(u.getName());
-        holder.photosPosted.setText(u.getPassword());
+        holder.photosPosted.setText("Photos Posted: " + realm.where(Photo.class)
+                .equalTo("userID", u.getUserID())
+                .count());
 
-        holder.visitProfileButton.setOnClickListener(v -> editUser(u));
+        holder.visitProfileButton.setOnClickListener(v -> visitProfile(u));
 
         // get cache directory
         File cacheDir = activity.getExternalCacheDir();
@@ -99,9 +105,11 @@ public class UserAdapter extends RealmRecyclerViewAdapter<User, UserAdapter.View
         }
     }
 
-    void editUser(User u)
+    void visitProfile(User u)
     {
-        activity.edit(u);
+        Intent intent = new Intent(activity, Profile.class);
+        intent.putExtra("userID", u.getUserID());
+        activity.startActivity(intent);
     }
 
     void deleteUser(User u)

@@ -63,7 +63,8 @@ public class EditScreen extends AppCompatActivity {
         prefs = getSharedPreferences("userToBeEdited", MODE_PRIVATE);
 
         // get uuid of user to be edited
-        String uuid = prefs.getString("uuid", "null");
+        // String userID = prefs.getString("userID", "null");
+        String userID = getIntent().getStringExtra("userID");
 
         // initialize views
         newUsername = findViewById(R.id.newUsername);
@@ -72,7 +73,7 @@ public class EditScreen extends AppCompatActivity {
 
         // get user to be edited
         User u = realm.where(User.class)
-                    .equalTo("uuid", uuid)
+                    .equalTo("userID", userID)
                     .findFirst();
 
         // fill in username and passwords as necessary
@@ -172,6 +173,7 @@ public class EditScreen extends AppCompatActivity {
                     t.show();
 
                     // go back to admin page
+                    setResult(RESULT_OK);
                     finish();
                 }
                 catch (Exception e)
@@ -191,6 +193,7 @@ public class EditScreen extends AppCompatActivity {
             newImage.delete(); // delete it
 
         // go back to admin page
+        setResult(RESULT_CANCELED);
         finish();
     }
 
